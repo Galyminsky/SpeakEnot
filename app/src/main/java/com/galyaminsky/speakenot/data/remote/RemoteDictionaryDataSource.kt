@@ -15,7 +15,7 @@ interface RemoteDictionaryDataSource {
 }
 
 class SkyengDataSource(private val api: SkyengApi, private val network: NetworkAvailability = AlwaysOnline) : RemoteDictionaryDataSource {
-    override suspend fun search(query: String) = request { api.search(query) }
+    override suspend fun search(query: String) = request { api.search(query, SEARCH_PAGE_SIZE) }
     override suspend fun meanings(ids: List<Long>) = request { api.meanings(ids.joinToString(",")) }
 
     private suspend fun <T> request(call: suspend () -> Response<List<T>?>): DictionaryResult<List<T>> = try {
@@ -36,5 +36,9 @@ class SkyengDataSource(private val api: SkyengApi, private val network: NetworkA
         DictionaryResult.Failure(DictionaryError.Network)
     } catch (_: Exception) {
         DictionaryResult.Failure(DictionaryError.Unknown)
+    }
+
+    companion object {
+        const val SEARCH_PAGE_SIZE = 200
     }
 }

@@ -7,7 +7,7 @@ import retrofit2.http.Query
 
 interface SkyengApi {
     @GET("words/search")
-    suspend fun search(@Query("search") query: String): Response<List<WordDto>?>
+    suspend fun search(@Query("search") query: String, @Query("pageSize") pageSize: Int): Response<List<WordDto>?>
 
     @GET("meanings")
     suspend fun meanings(@Query("ids") ids: String): Response<List<MeaningDto>?>

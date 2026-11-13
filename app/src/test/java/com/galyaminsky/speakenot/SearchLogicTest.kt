@@ -30,9 +30,10 @@ class SearchLogicTest {
             Word(2, "book", listOf(MeaningSummary(21, "книга", null, "n"), MeaningSummary(22, "бронировать", null, "v"))),
         )
         val groups = searchGroups("BOOK", words)
-        assertEquals(listOf("n", "v"), groups.map { it.partOfSpeech })
-        assertEquals(listOf(21L, 11L), groups[0].items.map { it.meaning.id })
+        assertEquals(listOf("n", "v", "n"), groups.map { it.partOfSpeech })
+        assertEquals(listOf(21L), groups[0].items.map { it.meaning.id })
         assertEquals(22L, groups[1].items.single().meaning.id)
+        assertEquals(listOf(11L), groups[2].items.map { it.meaning.id })
         assertEquals(3, groups.sumOf { it.items.size })
     }
 

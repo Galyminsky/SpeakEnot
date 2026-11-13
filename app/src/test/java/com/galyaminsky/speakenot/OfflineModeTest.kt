@@ -113,7 +113,7 @@ class OfflineModeTest {
         val network = FakeNetwork(false)
         var calls = 0
         val api = object : SkyengApi {
-            override suspend fun search(query: String): Response<List<WordDto>?> { calls++; return Response.success(emptyList()) }
+            override suspend fun search(query: String, pageSize: Int): Response<List<WordDto>?> { calls++; return Response.success(emptyList()) }
             override suspend fun meanings(ids: String): Response<List<MeaningDto>?> { calls++; return Response.success(emptyList()) }
         }
         val source = SkyengDataSource(api, network)
